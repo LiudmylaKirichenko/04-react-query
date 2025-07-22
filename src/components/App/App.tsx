@@ -15,7 +15,7 @@ import Pagination from "../Pagination/Pagination";
 
 export default function App() {
   const [query, setQuery] = useState("");
-  const [page, SetPage] = useState(1);
+  const [page, setPage] = useState(1);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   const { data, isLoading, isError, isSuccess } = useQuery({
@@ -39,7 +39,7 @@ export default function App() {
 
   const handleSearch = async (query: string) => {
     setQuery(query);
-    SetPage(1);
+    setPage(1);
   };
 
   const handleSelect = (movie: Movie) => {
@@ -52,11 +52,11 @@ export default function App() {
 
   return (
     <div className={css.app}>
+      <Toaster />
       <SearchBar onSubmit={handleSearch} />
       {isSuccess && data?.results.length > 0 && totalPages > 1 && (
-        <Pagination page={page} total={totalPages} onChange={SetPage} />
+        <Pagination page={page} total={totalPages} onChange={setPage} />
       )}
-      {<Toaster />}
       {isLoading ? (
         <Loader />
       ) : isError ? (
